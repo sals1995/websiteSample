@@ -13,15 +13,17 @@ export class CourseDetailsComponent implements OnInit {
   constructor( private routeA:ActivatedRoute,private courseService:CoursesService) { }
 
   ngOnInit() {
-    // console.log(this.routeA.snapshot.params['id']);
+    // console.log(this.routeA);
     this.routeA.paramMap.subscribe((course:ParamMap)=>{
       this.courseId=course.get("id")
     })
-    console.log(this.courseId)
     this.courseService.courseDetails(this.courseId).subscribe(data=>{
       this.courseData=data
-      console.log(this.courseData)
+      console.log(this.courseData);
     })
+    // this.courseData=this.routeA.snapshot.data[0]
+    // console.log(this.courseData);
+    
   }
 
 }

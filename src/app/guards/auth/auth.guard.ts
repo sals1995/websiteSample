@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate } from '@angular/router';
+import { CanActivate, ActivatedRouteSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -11,12 +11,14 @@ export class AuthGuard implements CanActivate {
   private expectedRole;
 
 // return false if : unautho. / token has been expired / unmatched roles
-  canActivate(){
+  canActivate(next:ActivatedRouteSnapshot){
     if (this.authService.isAuthontiacted()){
       return true
     }
-    window.alert(" you've not login yet, please login first")
-
+    else{
+      window.alert(" you've not login yet, please login first")
+    }
+    
 
 
 
