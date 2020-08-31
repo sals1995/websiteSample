@@ -5,8 +5,9 @@ import { CanActivateChild } from '@angular/router';
   providedIn: 'root'
 })
 export class ChildGuard implements CanActivateChild {
+  typeOfMembership= 'free'
   canActivateChild(){
-    return true;
+    return this.typeOfMembership === 'premium'? true: false;
   }
   
 }

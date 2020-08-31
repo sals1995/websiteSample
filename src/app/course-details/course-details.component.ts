@@ -21,8 +21,7 @@ export class CourseDetailsComponent implements OnInit {
       this.courseData=data
       console.log(this.courseData);
     })
-    // this.courseData=this.routeA.snapshot.data[0]
-    // console.log(this.courseData);
+    
     
   }
 

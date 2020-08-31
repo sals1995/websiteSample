@@ -7,27 +7,17 @@ import { BlogComponent } from './blog/blog.component';
 import { CourseDetailsComponent } from './course-details/course-details.component';
 import { HomeComponent } from './home/home.component';
 import { AuthGuard } from './guards/auth/auth.guard';
-import { ChildGuard } from './guards/canActivateChild/child.guard';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { ChartsComponent } from './dashboard/charts/charts.component';
-import { TablesComponent } from './dashboard/tables/tables.component';
 import { DataGuard } from './guards/data.guard';
-
+import { CanActiveGuard } from './guards/canActivate/can-active.guard';
 
 const routes: Routes = [
   { path: 'home', component:HomeComponent },
-  { path: 'contact', component:ContactComponent },
-  { path: 'courses', component:CoursesComponent, canActivateChild:[ChildGuard]},
-  { path: 'course/:id', component:CourseDetailsComponent,resolve:[DataGuard]},
-  { path: 'dashboard', component:DashboardComponent ,
-    children:[
-      { path:'charts', component:ChartsComponent},
-      { path:'tables', component:TablesComponent},
-  ]},
-  { path: 'blog', component:BlogComponent, canActivate:[AuthGuard], 
-    data:{expectedRole:'admin'}
-   } ,
-  {path:'',redirectTo:'/home',pathMatch:'full'},
+  { path: 'contact', component:ContactComponent},
+  { path: 'courses', component:CoursesComponent},
+  { path: 'course/:id', component:CourseDetailsComponent},
+  { path: 'blog', component:BlogComponent} ,
+   {path:'dashboard',loadChildren:() => import('./modules/dashboardModule/dashboard.module').then(m => m.DashboardModule)},
+  {path:'',redirectTo:'/home',pathMatch:'full' },
 ];
 
 @NgModule({
@@ -35,3 +25,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
+// data:{expectedRole:'admin'}

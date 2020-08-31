@@ -8,8 +8,7 @@ import { CoursesService } from '../services/courses/courses.service';
 })
 export class DataGuard implements Resolve<any> {
   constructor(private courseService:CoursesService){}
-  resolve(next:ActivatedRouteSnapshot,state:RouterStateSnapshot):Observable<any>{
-    var courseId= next.params.id    
-    return courseId ? this.courseService.courseDetails(courseId) : EMPTY
+  resolve():Observable<any>{
+    return  this.courseService.getAllCourses() || EMPTY
   }
 }

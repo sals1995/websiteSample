@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { CoursesService } from '../services/courses/courses.service';
 
 @Component({
@@ -10,7 +10,15 @@ import { CoursesService } from '../services/courses/courses.service';
 })
 export class HomeComponent implements OnInit {
   public courses:any;
-  constructor(private authService:AuthService,  private route: Router,private courseService:CoursesService) { }
+  constructor(private authService:AuthService,  private route: Router,private courseService:CoursesService,private routeA:ActivatedRoute) { }
+   ngOnInit() {
+    this.courseService.getAllCourses().subscribe(courses=>{
+      this.courses=courses
+    console.log(this.courses);
+    })
+    /* this.courses=this.routeA.snapshot.data[0]
+    console.log(this.courses); */
+  }
   public login(){
     var tokenRole = "admin"
     var customToken :string = window.btoa(tokenRole)
@@ -27,11 +35,6 @@ export class HomeComponent implements OnInit {
   public onSelect(id){
     this.route.navigate(["/course",id]);
   }
-  ngOnInit() {
-    this.courseService.getAllCourses().subscribe(courses=>{
-      this.courses=courses
-    console.log(this.courses);
-    })
-  }
+ 
 
 }
