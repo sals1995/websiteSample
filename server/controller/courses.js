@@ -6,11 +6,13 @@ const Cities = require("../models/cities");
 const Reviews = require("../models/reviews");
 const categories = require("../models/categories");
 const students = require("../models/students");
-
-
+var app= express();
+const bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: true }));
+var middlewareBodyParser = bodyParser.json();
 const router = express.Router();
   
-router.post("/add", (req, res , next) => {
+router.post("/add",middlewareBodyParser, (req, res ) => {
     const newCourse = new Courses({
         name: req.body.name,
         video: req.body.video,
